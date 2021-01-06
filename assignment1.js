@@ -19,6 +19,10 @@ const orOperation = function (arrayA, arrayB) {
     }
     // For BONUS 2, we can return a sorted array from this function
     //return sortArray(output);
+    //        OR
+    // return output.sort((value1, value2) => {
+    //     return value1 - value2;
+    // });
     return output;
 }
 
@@ -50,6 +54,10 @@ const andOperation = function (arrayA, arrayB) {
 
     // For BONUS 2, we can return a sorted array from this function
     // return sortArray(output);
+    //         OR
+    // return output.sort((value1, value2) => {
+    //     return value1 - value2;
+    // });
     return output;
 }
 
@@ -64,6 +72,10 @@ const minusOperation = function (arrayA, arrayB) {
     }
     // For BONUS 2, we can return a sorted array from this function
     // return sortArray(output);
+    //          OR
+    // return output.sort((value1, value2) => {
+    //     return value1 - value2;
+    // });
     return output;
 }
 
@@ -116,6 +128,7 @@ const elementInOnlyOneArray = function (arrayA, arrayB) {
     return output;
 }
 
+/*
 const swapElements = function (array, i, j) {
     let temp = array[i];
     array[i] = array[j];
@@ -160,7 +173,7 @@ const sortArray = function (array) {
     //console.log(array);
     return array;
 }
-
+*/
 const arrayA = [1, 3, 5, 10];
 const arrayB = [2, 4, 5, 6];
 
