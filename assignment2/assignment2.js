@@ -10,7 +10,7 @@ const adjustBorders = () => {
 }
 
 const removeSearchHistory = () => {
-    document.querySelector('.search-bar').style.borderRadius = '20px';
+    document.querySelector('.search-bar').style.borderRadius = '20px';      // adjust order to 20px radius
     document.querySelector('.search-history').innerHTML = '';
 }
 
@@ -46,5 +46,4 @@ function bindElements() {
     document.getElementById('inputField').addEventListener('focus', showSuggestions);
     document.getElementById('inputField').addEventListener('blur', removeSearchHistory);
     document.getElementById('inputField').addEventListener('click', adjustBorders);
-    document.querySelector('#inputField').addEventListener('')
 }
