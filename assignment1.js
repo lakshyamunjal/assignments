@@ -1,27 +1,12 @@
 // OR operation is distinct elements of A or B.
 const orOperation = function (arrayA, arrayB) {
-    let output = [];
-    // push all distinct elements of one array to output array
-    for (let i = 0; i < arrayA.length; i++) {
-        let value = arrayA[i];
-        // check for duplicates here also
-        if (output.includes(value) == false) {
-            output.push(value);
-        }
-    }
+    const output = new Set([...arrayA, ...arrayB]);
+    return [...output];         // convert set to array and return it.
 
-    // From array B, check if the element is already not in the output and arrayA, then push it.
-    for (let i = 0; i < arrayB.length; i++) {
-        let value = arrayB[i];
-        if (output.includes(value) == false && arrayA.includes(value) == false) {
-            output.push(value);
-        }
-    }
     // For BONUS 2, we can return a sorted array from this function
     // return output.sort((value1, value2) => {
     //     return value1 - value2;
     // });
-    return output;
 }
 
 // If value is found in both array A and array B, include it in output.
@@ -31,46 +16,48 @@ const andOperation = function (arrayA, arrayB) {
     const lengthB = arrayB.length;
 
     if (lengthA > lengthB) {
-        // loop through complete array A becuase it is larger in size.
-        for (let i = 0; i < lengthA; i++) {
-            let value = arrayA[i];
-            // check if value is also in array B and not in output array(to avoid duplicates)
-            if (arrayB.includes(value) && output.includes(value) == false) {
-                output.push(value);
-            }
-        }
+        // avoid duplicates also
+        output = arrayA.filter((value) => arrayB.includes(value) && output.includes(value) == false);
     } else {
-        // loop through complete array B becuase it is larger in size.
-        for (let i = 0; i < lengthB; i++) {
-            let value = arrayB[i];
-            // check if value is also in array A and not in output array(to avoid duplicates)
-            if (arrayA.includes(value) && output.includes(value) == false) {
-                output.push(value);
-            }
-        }
+        // avoid duplicates also
+        output = arrayB.filter((value) => arrayA.includes(value) && output.includes(value) == false);
     }
+
+    return output;
 
     // For BONUS 2, we can return a sorted array from this function
     // return output.sort((value1, value2) => {
     //     return value1 - value2;
     // });
-    return output;
 }
 
 // elements that are in A but not in B
 const minusOperation = function (arrayA, arrayB) {
-    let output = [];
-    for (let i = 0; i < arrayA.length; i++) {
-        let value = arrayA[i];
-        if (arrayB.includes(value) == false) {
-            output.push(value);
-        }
-    }
+    const output = arrayA.filter((value) => {
+        return !arrayB.includes(value);
+    });
+    
+    return output;
+
     // For BONUS 2, we can return a sorted array from this function
     // return output.sort((value1, value2) => {
     //     return value1 - value2;
     // });
-    return output;
+}
+
+// BONUS 1
+const elementInOnlyOneArray = function (arrayA, arrayB) {
+    // (A OR B) - (A and B)
+    const output = orOperation(arrayA, arrayB);
+    const output2 = andOperation(arrayA, arrayB);
+    const result = minusOperation(output, output2);
+
+    return result;
+    
+    // For BONUS 2, we can return a sorted array from this function
+    // return result.sort((value1, value2) => {
+    //     return value1 - value2;
+    // });
 }
 
 const operationOnArray = function (arrayA, arrayB, operator) {
@@ -97,24 +84,13 @@ const operationOnArray = function (arrayA, arrayB, operator) {
             return;
     }
     console.log(`Array opeation ${operator} has been performed on array A of size:${arrayA.length} and Array B of size:${arrayB.length} and Output Array is of size:${output.length}`);
-    return output;
-}
-
-// BONUS 1
-const elementInOnlyOneArray = function (arrayA, arrayB) {
-    // Resue the functions of AND, OR, MINUS.
-    // (A|B) - (A&B)
-
-    let output = orOperation(arrayA, arrayB);
-    let output2 = andOperation(arrayB, arrayA);
-
-    output = minusOperation(output, output2);
 
     return output;
 }
-const arrayA = [1, 3, 5, 10];
-const arrayB = [2, 4, 6];
-const operator = "EITHER";
+
+const arrayA = [1, 6, 3, 5, 10];
+const arrayB = [3, 6, 13];
+const operator = "MINUS";
 
 const output = operationOnArray(arrayA, arrayB, operator);
 console.log(output);
